@@ -59,7 +59,7 @@
     "vuex": "3"
   },
   "devDependencies": {
-    "@frappe/esbuild-plugin-postcss2": "^0.1.3",
+    "@frappe/esbuild-plugin-postcss2": "^2.1.3",
     "@vue/component-compiler": "^4.2.4",
     "autoprefixer": "10",
     "chalk": "^2.3.2",
