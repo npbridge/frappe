@@ -8,7 +8,7 @@ frappe.pages["dashboard-view"].on_page_load = function(wrapper) {
 	frappe.ui.make_app_page({
 		parent: wrapper,
 		title: __("Dashboard"),
-		single_column: true,
+		single_column: true
 	});
 
 	frappe.dashboard = new Dashboard(wrapper);
@@ -74,7 +74,7 @@ class Dashboard {
 				title = __("{0} Dashboard", [title]);
 			}
 			this.page.set_title(title);
-			// this.set_dropdown();
+			// // this.set_dropdown();
 			this.container.empty();
 			this.refresh();
 		}

@@ -184,7 +184,6 @@ class LoginManager:
 		frappe.local.cookie_manager.init_cookies()
 
 		self.full_name = " ".join(filter(None, [self.info.first_name, self.info.last_name]))
-
 		if self.info.user_type == "Website User":
 			frappe.local.cookie_manager.set_cookie("system_user", "no")
 			if not resume:
