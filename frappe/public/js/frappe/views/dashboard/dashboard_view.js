@@ -70,13 +70,10 @@ frappe.views.DashboardView = class DashboardView extends frappe.views.ListView {
 			{ btn_class: "btn-primary" }
 		);
 
-		this.discard_customizations_button = this.page.add_button(
-			__("Discard"),
-			() => {
-				this.discard_dashboard_customization();
-				this.page.standard_actions.show();
-			}
-		);
+		this.discard_customizations_button = this.page.add_button(__("Discard"), () => {
+			this.discard_dashboard_customization();
+			this.page.standard_actions.show();
+		});
 
 		this.toggle_customization_buttons(false);
 	}
@@ -164,7 +161,7 @@ frappe.views.DashboardView = class DashboardView extends frappe.views.ListView {
 				allow_delete: true,
 				allow_hiding: true
 			},
-			default_values: { doctype: this.doctype },
+			default_values: {  doctype: this.doctype  },
 			widgets: this.number_cards || [],
 			in_customize_mode: this.in_customize_mode || false
 		});
@@ -239,7 +236,7 @@ frappe.views.DashboardView = class DashboardView extends frappe.views.ListView {
 	get_widgets_to_save(widget_group) {
 		const config = widget_group.get_widget_config();
 		let widgets = [];
-		config.order.map(widget_name => {
+		config.order.map((widget_name) => {
 			widgets.push(config.widgets[widget_name]);
 		});
 		return this.remove_duplicates(widgets);
@@ -383,7 +380,7 @@ frappe.views.DashboardView = class DashboardView extends frappe.views.ListView {
 					fieldtype: "Select",
 					fieldname: "based_on",
 					options: fields.value_fields,
-					depends_on: 'eval: doc.chart_function=="Sum"'
+					depends_on: 'eval: doc.chart_function=="Sum"',
 				},
 				{
 					label: "Time Series Based On",
@@ -500,7 +497,7 @@ frappe.views.DashboardView = class DashboardView extends frappe.views.ListView {
 					});
 				}
 				dialog.hide();
-			}
+			},
 		});
 		dialog.show();
 	}
@@ -542,7 +539,7 @@ frappe.views.DashboardView = class DashboardView extends frappe.views.ListView {
 			date_fields: date_fields,
 			value_fields: value_fields,
 			group_by_fields: group_by_fields,
-			aggregate_function_fields: aggregate_function_fields
+			aggregate_function_fields: aggregate_function_fields,
 		};
 	}
 

@@ -1,15 +1,14 @@
 # Copyright (c) 2019, Frappe Technologies Pvt. Ltd. and Contributors
 # License: MIT. See LICENSE
 
-import unittest
-
 import frappe
 import frappe.utils
 from frappe.desk.query_report import build_xlsx_data
+from frappe.tests.utils import FrappeTestCase
 from frappe.utils.xlsxutils import make_xlsx
 
 
-class TestQueryReport(unittest.TestCase):
+class TestQueryReport(FrappeTestCase):
 	def test_xlsx_data_with_multiple_datatypes(self):
 		"""Test exporting report using rows with multiple datatypes (list, dict)"""
 
@@ -39,7 +38,12 @@ class TestQueryReport(unittest.TestCase):
 		self.assertListEqual(column_widths, [0, 10, 15])
 
 		for row in xlsx_data:
-			self.assertEqual(type(row), list)
+			self.assertIsInstance(row, list)
+
+		# ensure all types are preserved
+		for row in xlsx_data[1:]:
+			for cell in row:
+				self.assertIsInstance(cell, (int, float))
 
 	def test_xlsx_export_with_composite_cell_value(self):
 		"""Test excel export using rows with composite cell value"""

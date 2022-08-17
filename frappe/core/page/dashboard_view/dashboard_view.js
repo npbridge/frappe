@@ -8,7 +8,7 @@ frappe.pages["dashboard-view"].on_page_load = function(wrapper) {
 	frappe.ui.make_app_page({
 		parent: wrapper,
 		title: __("Dashboard"),
-		single_column: true
+		single_column: true,
 	});
 
 	frappe.dashboard = new Dashboard(wrapper);
@@ -91,10 +91,7 @@ class Dashboard {
 	}
 
 	refresh() {
-		frappe.run_serially([
-			() => this.render_cards(),
-			() => this.render_charts()
-		]);
+		frappe.run_serially([() => this.render_cards(), () => this.render_charts()]);
 	}
 
 	render_charts() {
@@ -135,7 +132,7 @@ class Dashboard {
 					},
 					widgets: this.charts
 				});
-			});
+			});;
 		});
 	}
 
@@ -217,3 +214,4 @@ class Dashboard {
 		});
 	}
 }
+

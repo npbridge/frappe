@@ -8,7 +8,7 @@ frappe.breadcrumbs = {
 		File: "",
 		Dashboard: "Customization",
 		"Dashboard Chart": "Customization",
-		"Dashboard Chart Source": "Customization"
+		"Dashboard Chart Source": "Customization",
 	},
 
 	module_map: {
@@ -114,7 +114,7 @@ frappe.breadcrumbs = {
 
 		if (from_module) {
 			breadcrumbs.module = from_module;
-		} else if (this.preferred[breadcrumbs.doctype] !== undefined) {
+		} else if (this.preferred[breadcrumbs.doctype]  !==  undefined) {
 			// get preferred module for breadcrumbs
 			breadcrumbs.module = this.preferred[breadcrumbs.doctype];
 		}
