@@ -1,7 +1,6 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: MIT. See LICENSE
 import datetime
-import unittest
 
 import frappe
 from frappe.core.page.permission_manager.permission_manager import add, reset, update
@@ -11,12 +10,13 @@ from frappe.handler import execute_cmd
 from frappe.model.db_query import DatabaseQuery
 from frappe.permissions import add_user_permission, clear_user_permissions_for_doctype
 from frappe.query_builder import Column
+from frappe.tests.utils import FrappeTestCase
 from frappe.utils.testutils import add_custom_field, clear_custom_fields
 
 test_dependencies = ["User", "Blog Post", "Blog Category", "Blogger"]
 
 
-class TestReportview(unittest.TestCase):
+class TestReportview(FrappeTestCase):
 	def setUp(self):
 		frappe.set_user("Administrator")
 
@@ -143,7 +143,9 @@ class TestReportview(unittest.TestCase):
 			)
 
 	def test_none_filter(self):
-		query = frappe.db.query.get_sql("DocType", fields="name", filters={"restrict_to_domain": None})
+		query = frappe.qb.engine.get_query(
+			"DocType", fields="name", filters={"restrict_to_domain": None}
+		)
 		sql = str(query).replace("`", "").replace('"', "")
 		condition = "restrict_to_domain IS NULL"
 		self.assertIn(condition, sql)
@@ -515,8 +517,7 @@ class TestReportview(unittest.TestCase):
 		data = frappe.db.get_list(
 			"Web Form",
 			filters=[["Web Form Field", "reqd", "=", 1]],
-			group_by="amount_field",
-			fields=["count(*) as count", "`amount_field` as name"],
+			fields=["count(*) as count"],
 			order_by="count desc",
 			limit=50,
 		)
