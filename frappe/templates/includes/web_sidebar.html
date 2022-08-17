@@ -3,80 +3,88 @@
 	{%- if item.group_title -%}
 
 	<h6>{{ item.group_title }}</h6>
-	{{ render_sidebar_items(item.group_items) }}
-
-	{%- else -%}
-
-	{% if item.type != 'input' %}
-	{%- set item_route = item.route[1:] if item.route[0] == '/' else item.route -%}
-	<a href="{{ item.route }}" class="{{ 'active' if pathname == item_route else '' }}"
-		{% if item.target %}target="{{ item.target }}" {% endif %}>
+	{{ render_sidebar_items(item.group_items) }} {%- else -%} {% if item.type != 'input' %} {%- set
+	item_route = item.route[1:] if item.route[0] == '/' else item.route -%}
+	<a
+		href="{{ item.route }}"
+		class="{{ 'active' if pathname == item_route else '' }}"
+		{%
+		if
+		item.target
+		%}target="{{ item.target }}"
+		{%
+		endif
+		%}
+	>
 		{{ _(item.title or item.label) }}
 	</a>
 	{% else %}
-	<form action='{{ item.route }}' class="mr-4">
-		<input name='q' class='form-control' type='text' style="outline: none"
-			placeholder="{{ _(item.title or item.label) }}">
+	<form action="{{ item.route }}" class="mr-4">
+		<input
+			name="q"
+			class="form-control"
+			type="text"
+			style="outline: none"
+			placeholder="{{ _(item.title or item.label) }}"
+		/>
 	</form>
-	{% endif %}
-
-	{%- endif -%}
+	{% endif %} {%- endif -%}
 </li>
-{% endmacro %}
-
-{% macro render_sidebar_items(items) %}
-{%- if items | len > 0 -%}
+{% endmacro %} {% macro render_sidebar_items(items) %} {%- if items | len > 0 -%}
 <ul class="list-unstyled">
-	{% for item in items -%}
-	{{ render_sidebar_item(item) }}
-	{%- endfor %}
+	{% for item in items -%} {{ render_sidebar_item(item) }} {%- endfor %}
 </ul>
-{%- endif -%}
-{% endmacro %}
-
-{% macro my_account() %}
-{% if frappe.user != 'Guest' %}
+{%- endif -%} {% endmacro %} {% macro my_account() %} {% if frappe.user != 'Guest' %}
 <ul class="list-unstyled">
-	<li class="sidebar-item">
+	<li
+		class="sidebar-item"
+		style="stroke: #687178;border-radius: 8px;cursor: pointer;box-sizing: border-box;border-width: 0;border-style: solid;border-color: #ebeef0;"
+	>
 		<a href="/me">{{ _("My Account") }}</a>
 	</li>
 </ul>
-{% endif %}
-{% endmacro %}
+{% endif %} {% endmacro %}
 
-<div class="web-sidebar">
+<div
+	class="web-sidebar"
+	style="--tw-text-opacity: 1;color: rgb(51 60 68 / var(--tw-text-opacity));--tw-bg-opacity: 1;"
+>
 	{% if sidebar_title %}
 	<li class="title">
 		{{ sidebar_title }}
 	</li>
 	{% endif %}
 	<div class="sidebar-items">
-		{{ render_sidebar_items(sidebar_items) }}
-		{{ my_account() }}
+		{{ render_sidebar_items(sidebar_items) }} {{ my_account() }}
 	</div>
 </div>
 
 <script>
-	frappe.ready(function () {
-		$('.sidebar-item a').each(function (index) {
-			const active_class = 'active'
-			const non_active_class = ''
+	frappe.ready(function() {
+		$(".sidebar-item a").each(function(index) {
+			const active_class = "active";
+			const non_active_class = "";
 			let page_href = window.location.href;
-			if (page_href.indexOf('#') !== -1) {
-				page_href = page_href.slice(0, page_href.indexOf('#'));
+			if (page_href.indexOf("#") !== -1) {
+				page_href = page_href.slice(0, page_href.indexOf("#"));
 			}
 			if (this.href.trim() == page_href) {
-				$(this).removeClass(non_active_class).addClass(active_class);
+				$(this)
+					.removeClass(non_active_class)
+					.addClass(active_class);
 			} else {
-				$(this).removeClass(active_class).addClass(non_active_class);
+				$(this)
+					.removeClass(active_class)
+					.addClass(non_active_class);
 			}
 		});
 
 		// scroll the active sidebar item into view
-		let active_sidebar_item = $('.sidebar-item a.active');
+		let active_sidebar_item = $(".sidebar-item a.active");
 		if (active_sidebar_item.length > 0) {
-			active_sidebar_item.get(0)
-				.scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
+			active_sidebar_item
+				.get(0)
+				.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 		}
 	});
 </script>

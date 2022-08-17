@@ -1,16 +1,10 @@
-{% extends base_template_path %}
-{% block hero %}{% endblock %}
-
-{% block content %}
-
-{% macro main_content() %}
+{% extends base_template_path %} {% block hero %}{% endblock %} {% block content %} {% macro
+main_content() %}
 <div class="page-content-wrapper">
 	<!-- breadcrumbs -->
-	<div class="page-breadcrumbs">
-		{% block breadcrumbs %}
-			{% include 'templates/includes/breadcrumbs.html' %}
-		{% endblock %}
-	</div>
+	<!-- <div class="page-breadcrumbs">
+		{% block breadcrumbs %} {% include 'templates/includes/breadcrumbs.html' %} {% endblock %}
+	</div> -->
 
 	{% block page_container %}
 	<main class="{% if not full_width %}container my-4{% endif %}">
@@ -36,41 +30,30 @@
 	</main>
 	{% endblock %}
 </div>
-{% endmacro %}
-
-{% macro container_attributes() -%}
-id="page-{{ name or route | e }}" data-path="{{ pathname | e }}"
-{%- if page_or_generator=="Generator" %}source-type="Generator" data-doctype="{{ doctype }}"{%- endif %}
-{%- if source_content_type %}source-content-type="{{ source_content_type }}"{%- endif %}
-{%- endmacro %}
-
-{% macro sidebar() %}
-<div class="sidebar-column col-sm-{{ columns }}">
-	{% block page_sidebar %}
-	{% include "templates/includes/web_sidebar.html" %}
-	{% endblock %}
+{% endmacro %} {% macro container_attributes() -%} id="page-{{ name or route | e }}" data-path="{{
+pathname | e }}" {%- if page_or_generator=="Generator" %}source-type="Generator" data-doctype="{{
+doctype }}"{%- endif %} {%- if source_content_type %}source-content-type="{{ source_content_type
+}}"{%- endif %} {%- endmacro %} {% macro sidebar() %}
+<div
+	style="background-color: #f2f2f2;border-right-width: 1px;border-style: solid;
+	border-color: #ebeef0;--tw-text-opacity: 1;color:#333c44;width: 241px;"
+	class="sidebar-column col-sm-{{ 2 }}"
+>
+	{% block page_sidebar %} {% include "templates/includes/web_sidebar.html" %} {% endblock %}
 </div>
-{% endmacro %}
-
-{% if show_sidebar %}
-<div class="container">
+{% endmacro %} {% if show_sidebar %}
+<div class="container" style="margin-left: 0 !important;">
 	<div class="row" {{ container_attributes() }}>
-		{%- set columns = sidebar_columns or 2 -%}
-		{%- if not sidebar_right -%}
-		{{ sidebar() }}
-		{%- endif -%}
-		<div class="main-column col-sm-{{ 12 - columns }}">
+		{%- set columns = sidebar_columns or 2 -%} {%- if not sidebar_right -%} {{ sidebar() }} {%-
+		endif -%}
+		<div class="main-column col-sm-{{ 10 }}" style="padding-left: 10rem">
 			{{ main_content() }}
 		</div>
-		{%- if sidebar_right -%}
-		{{ sidebar() }}
-		{%- endif -%}
+		{%- if sidebar_right -%} {{ sidebar() }} {%- endif -%}
 	</div>
 </div>
 {% else %}
 <div {{ container_attributes() }}>
 	{{ main_content() }}
 </div>
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}

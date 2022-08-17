@@ -11,6 +11,8 @@
 		<div class="row no-gutters w-100">
 			<div class="col-12 col-lg-2">
 				<a class="navbar-brand" href="{{ url_prefix }}{{ home_page or "/" }}">
+				Moodle</a>
+				<!-- <a class="navbar-brand" href="{{ url_prefix }}{{ home_page or "/" }}">
 					{%- if brand_html -%}
 					{{ brand_html }}
 					{%- elif banner_image -%}
@@ -18,7 +20,7 @@
 					{%- else -%}
 					<span>{{ (frappe.get_hooks("brand_html") or [_("Home")])[0] }}</span>
 					{%- endif -%}
-				</a>
+				</a> -->
 			</div>
 			<div class="col-12 col-lg-8">
 				<div class="doc-search-container">
@@ -65,7 +67,7 @@ id="page-{{ name or route | e }}" data-path="{{ pathname | e }}"
 
 <div class="container-fluid doc-layout doc-container">
 	<div class="row no-gutters" {{ container_attributes() }}>
-		<div class="sidebar-column col-sm-2">
+		<div class="sidebar-column">
 			<aside class="doc-sidebar">
 				{% block page_sidebar %}
 				{% include "templates/includes/web_sidebar.html" %}
